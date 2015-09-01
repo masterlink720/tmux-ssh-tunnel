@@ -41,7 +41,8 @@ if ! id ${tunnel_user} /etc/passwd &> /dev/null; then
 fi
 
 # Log in as the tunnel user
-sudo -n -E -u ${tunnel_user} bash -s < ./.tunneler_install.sh
+sudo su --preserve-environment - ${tunnel_user} -c 'bash -s' < ./.tunneler_install.sh
+# sudo -n -E -u ${tunnel_user} bash -s < ./.tunneler_install.sh
 
 
 # Creating an ssh key to allow automated connections
