@@ -14,7 +14,7 @@ if [ ${UID} -ne 0 ]; then
 	exit 1
 fi
 
-. config
+. ../config
 
 # If the remote_server hasn't been set yet, complain
 if [ -z "${remote_server}" ] || [ -z "${tunnel_user}" ] ; then
@@ -35,7 +35,7 @@ if [ ! grep -q ${tunnel_user} /etc/passwd ]; then
 
 	mkdir -p ${tunnel_dir} && \
 		cp ./*sh ${tunnel_dir}/ && \
-		cp ./config ${tunnel_dir}/
+		cp ../config ${tunnel_dir}/
 fi
 
 # Creating an ssh key to allow automated connections

@@ -1,4 +1,4 @@
-tunnel_user='ssh_tunnel'
+tunnel_user='tunnel_user'
 remote_port=2222
 local_forward='127.0.0.1:22'
 remote_server=''

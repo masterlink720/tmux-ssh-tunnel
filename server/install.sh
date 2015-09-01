@@ -22,10 +22,10 @@ else
     exit 1
 fi
 
-. ../client/config
+. ./config
 
 # Make the tunnel if he does not yet exist
-if [ ! grep -q ${tunnel_user} /etc/passwd ]; then
+if ! grep -q ${tunnel_user} /etc/passwd; then
 	echo -e "\n\t - Creating the tunnel_user user..."
 	
 	useradd --home-dir "/home/${tunnel_user}/" \
@@ -40,11 +40,11 @@ if [ ! grep -q ${tunnel_user} /etc/passwd ]; then
 fi
 
 # Make sure the rule hasn't already been applied
-if ! grep -q "Match user ${tunnel_user}" ${ssh_conf}; the
+if ! grep -q "Match user ${tunnel_user}" ${ssh_conf}; then
 
     echo -e "\n\n" \
         "\n# Confine the ${tunnel_user} to his home directory" \
         "\nMatch user tunnel_user" \
         "\n\tChrootDirectory /home/${tunnel_user}" \
-        "\n"
+        "\n" >> ${ssh_conf}
 fi
