@@ -31,17 +31,17 @@ if ! id ${tunnel_user} /etc/passwd &> /dev/null; then
 	
 	useradd --home-dir "/home/${tunnel_user}/" \
 		-m --system \
-		--shell $(which sh) \
+		--shell $(which bash) \
 		${tunnel_user} 
 
 	mkdir -p ${tunnel_dir} && \
 		cp ./*sh ${tunnel_dir}/ && \
 		cp ../config ${tunnel_dir}/ &&
-		chown -R ${tunnel_user}:${tunnel_user} ${tunnel_dir}
+		chown -R ${tunnel_user}:${tunnel_user} /home/${tunnel_user}
 fi
 
 # Log in as the tunnel user
-sudo su --preserve-environment - ${tunnel_user} -c 'bash -s' < ./.tunneler_install.sh
+sudo su - ${tunnel_user} -c 'bash -s' < ./.tunneler_install.sh
 # sudo -n -E -u ${tunnel_user} bash -s < ./.tunneler_install.sh
 
 
