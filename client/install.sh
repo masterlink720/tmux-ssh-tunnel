@@ -41,7 +41,7 @@ if ! id ${tunnel_user} /etc/passwd &> /dev/null; then
 fi
 
 # Log in as the tunnel user
-sudo su - ${tunnel_user} -c 'bash -s' < ./.tunneler_install.sh
+sudo su -i --preserve-environment - ${tunnel_user} -c 'bash -s' < ./.tunneler_install.sh
 # sudo -n -E -u ${tunnel_user} bash -s < ./.tunneler_install.sh
 
 
