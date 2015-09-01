@@ -38,14 +38,18 @@ if ! grep -q ${tunnel_user} /etc/passwd; then
 		cp ../config ${tunnel_dir}/
 fi
 
+su -
+
 # Creating an ssh key to allow automated connections
 sudo -n -E -u ${tunnel_user} sh -c "ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa"
 
 # Install the crontab
 sudo -n -E -u ${tunnel_user} sh -c "crontab -l /tmp/${tunnel_user}.cron"
 
-echo "\n\n#Start the ssh tunnel on each system boot" \
-	"\ntmux-session -d -s ssh_tunnel \"${tunnel_dir}/tunnel.sh\"" \
+echo "\n\n\n#Start the ssh tunnel on each system boot" \
+	"\n@reboot tmux-session -d -s ssh_tunnel \"${tunnel_dir}/tunnel.sh\"" \
 	"\n" >> /tmp/${tunnel_user}.cron
 
-sudo -n -E -u ${tunnel_user} sh -c "crontab /tmp/${tunnel_user}.cron && rm /tmp/${tunnel_user}.cron"
+sudo -n -E -u ${tunnel_user} sh -c "crontab /tmp/${tunnel_user}.cron"
+
+rm /tmp/${tunnel_user}.cron
