@@ -39,7 +39,7 @@ if ! grep -q ${tunnel_user} /etc/passwd; then
 fi
 
 # Creating an ssh key to allow automated connections
-sudo -n -E -u ${tunnel_user} sh -c "ssh-keygen -t rsa -N '' -f /home/${tunnel_user}/.ssh/id_rsa"
+sudo -n -E -u ${tunnel_user} sh -c "ssh-keygen -q -t rsa -N '' -f /home/${tunnel_user}/.ssh/id_rsa"
 
 # Install the crontab
 #sudo -n -E -u ${tunnel_user} sh -c "crontab -l /tmp/${tunnel_user}.cron"
