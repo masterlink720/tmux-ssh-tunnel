@@ -35,19 +35,44 @@ if ! grep -q ${tunnel_user} /etc/passwd; then
 
 	mkdir -p ${tunnel_dir} && \
 		cp ./*sh ${tunnel_dir}/ && \
-		cp ../config ${tunnel_dir}/
+		cp ../config ${tunnel_dir}/ &&
+		chmod -R ${tunnel_user}:${tunnel_user} ${tunnel_dir}
 fi
 
+# Log in as the tunnel user
+su - ${tunnel_user}
+
+# Setup ssh dir
+mkdir ~/.ssh && \
+	chmod 600 ~/.ssh
+
+# Generate an ssh key
+ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa
+
+# Setup cron
+echo -e "\n\n\n#Start the ssh tunnel on each system boot" \
+	"\n@reboot tmux-session -d -s ssh_tunnel \"${tunnel_dir}/tunnel.sh\"" \
+	"\n" > ~/.cron
+
+crontab ~/.cron && \
+	rm ~/.cron
+
+# Deploy the key
+echo -e "\n\n\t - We're not going to deploy the SSH key to th eserver, hopefully you've run the server installation first" \
+	"\n\tIf not, do so now and keep note of the password it gives you\n\n"
+
+ssh-copy-id ${remote_server} -p ${remote_port}
+
 # Creating an ssh key to allow automated connections
-sudo -n -E -u ${tunnel_user} sh -c "ssh-keygen -q -t rsa -N '' -f /home/${tunnel_user}/.ssh/id_rsa"
+# sudo -n -E -u ${tunnel_user} sh -c "ssh-keygen -q -t rsa -N '' -f /home/${tunnel_user}/.ssh/id_rsa"
 
 # Install the crontab
 #sudo -n -E -u ${tunnel_user} sh -c "crontab -l /tmp/${tunnel_user}.cron"
 
-echo -e "\n\n\n#Start the ssh tunnel on each system boot" \
-	"\n@reboot tmux-session -d -s ssh_tunnel \"${tunnel_dir}/tunnel.sh\"" \
-	"\n" > /tmp/${tunnel_user}.cron
+#echo -e "\n\n\n#Start the ssh tunnel on each system boot" \
+#	"\n@reboot tmux-session -d -s ssh_tunnel \"${tunnel_dir}/tunnel.sh\"" \
+#	"\n" > /tmp/${tunnel_user}.cron
 
-sudo -n -E -u ${tunnel_user} sh -c "crontab /tmp/${tunnel_user}.cron"
+#sudo -n -E -u ${tunnel_user} sh -c "crontab /tmp/${tunnel_user}.cron"
 
-rm /tmp/${tunnel_user}.cron
+#rm /tmp/${tunnel_user}.cron
