@@ -36,7 +36,7 @@ if ! grep -q ${tunnel_user} /etc/passwd; then
 	mkdir -p ${tunnel_dir} && \
 		cp ./*sh ${tunnel_dir}/ && \
 		cp ../config ${tunnel_dir}/ &&
-		chmod -R ${tunnel_user}:${tunnel_user} ${tunnel_dir}
+		chown -R ${tunnel_user}:${tunnel_user} ${tunnel_dir}
 fi
 
 # Log in as the tunnel user
