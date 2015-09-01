@@ -33,11 +33,6 @@ if [ ! grep -q ${tunnel_user} /etc/passwd ]; then
 		--shell $(which sh) \
 		${tunnel_user} 
 
-	mkdir -p ${tunnel_dir} && \
-		cp ./*sh ${tunnel_dir}/ && \
-		cp ./config ${tunnel_dir}/
-
-
     tunnel_password="$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 8)"
     usermod --password "${tunnel_password}" ${tunnel_user}
 

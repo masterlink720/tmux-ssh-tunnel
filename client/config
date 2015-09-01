@@ -1,6 +1,6 @@
 tunnel_user='ssh_tunnel'
 remote_port=2222
-local_forward='127.0.0.1:22"
+local_forward='127.0.0.1:22'
 remote_server=''
 remote_port='22'
 log="${HOME}/ssh_tunnel/tunnel.log"
