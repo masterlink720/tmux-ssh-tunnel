@@ -37,9 +37,7 @@ if ! grep -q ${tunnel_user} /etc/passwd; then
 		cp ./*sh ${tunnel_dir}/ && \
 		cp ../config ${tunnel_dir}/
 fi
-
-su -
-
+vim ins
 # Creating an ssh key to allow automated connections
 sudo -n -E -u ${tunnel_user} sh -c "ssh-keygen -t rsa -N '' -f /home/${tunnel_user}/.ssh/id_rsa"
 
