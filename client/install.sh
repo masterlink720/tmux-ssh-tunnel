@@ -25,8 +25,9 @@ fi
 
 # First make the tunnel_user if he doesn't yet exist
 tunnel_dir="/home/${tunnel_user}/ssh_tunnel"
-if ! grep -q ${tunnel_user} /etc/passwd; then
-	echo -e "\n\t - Creating the tunnel_user user..."
+#if ! grep -q ${tunnel_user} /etc/passwd; then
+if ! id ${tunnel_user} /etc/passwd &> /dev/null; then
+	echo -e "\n\t - Creating the user '${tunnel_user}'..."
 	
 	useradd --home-dir "/home/${tunnel_user}/" \
 		-m --system \
@@ -40,7 +41,7 @@ if ! grep -q ${tunnel_user} /etc/passwd; then
 fi
 
 # Log in as the tunnel user
-sudo -n -E -u ${tunnel_user} bash -c < ./.tunneler_install.sh
+sudo -n -E -u ${tunnel_user} bash -s < ./.tunneler_install.sh
 
 
 # Creating an ssh key to allow automated connections
