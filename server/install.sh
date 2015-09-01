@@ -22,7 +22,7 @@ else
     exit 1
 fi
 
-. ./config
+. ../config
 
 # Make the tunnel if he does not yet exist
 if ! grep -q ${tunnel_user} /etc/passwd; then
