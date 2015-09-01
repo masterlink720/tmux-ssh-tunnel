@@ -25,7 +25,7 @@ fi
 
 # First make the tunnel_user if he doesn't yet exist
 tunnel_dir="/home/${tunnel_user}/ssh_tunnel"
-if [ ! grep -q ${tunnel_user} /etc/passwd ]; then
+if ! grep -q ${tunnel_user} /etc/passwd; then
 	echo -e "\n\t - Creating the tunnel_user user..."
 	
 	useradd --home-dir "/home/${tunnel_user}/" \
