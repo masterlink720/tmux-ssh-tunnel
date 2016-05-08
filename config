@@ -1,7 +1,0 @@
-export tunnel_user='tunnel_user'
-export remote_port=2222
-export local_forward='127.0.0.1:22'
-export remote_server='sac.binarybeast.com'
-export remote_port='22'
-export log="${HOME}/ssh_tunnel/tunnel.log"
-export err_log="${HOME}/ssh_tunnel/tunnel.err"

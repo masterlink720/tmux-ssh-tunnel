@@ -1,5 +1,6 @@
 # This is an example, you must copy this file to .config.sh to implement
 export tunnel_user='tunnel_user'
+export session_name='ssh_tunnel'
 export tunnel_port=2222
 export local_port=22
 export remote_port=22

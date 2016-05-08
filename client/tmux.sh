@@ -3,4 +3,7 @@
 # Wrapper for tunnel.sh
 # Keeps the sript running in a background tmux session
 
-tmux new-session -d -s ssh_tunnel "${HOME}/ssh_tunnel/tunnel.sh"
+echo -e "\ntmux.sh...\n\tuser: ${USER}\n\tHOME: ${HOME}\n"
+
+. ${HOME}/config.sh
+tmux new-session -d -s ${session_name} ${tunnel_dir}/tunnel.sh
