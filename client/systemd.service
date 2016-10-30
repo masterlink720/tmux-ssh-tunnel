@@ -1,0 +1,10 @@
+[Unit]
+Description=Launches an SSH connection with a reverse SSh tunnel in a tmux session
+After=network.target
+
+[Service]
+ExecStart=/bin/bash -c "/home/masterlink/ssh_tunnel.sh"
+User=masterlink
+
+[Install]
+WantedBy=default.target
